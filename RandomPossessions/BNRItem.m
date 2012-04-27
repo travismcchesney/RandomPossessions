@@ -73,6 +73,14 @@
     return self;
 }
 
+-(id)initWithNameAndSerial:(NSString *)name
+              serialNumber:(NSString *)sNumber
+{
+    return [self initWithItemName:name
+                   valueInDollars:0
+                     serialNumber:sNumber];
+}
+
 -(NSString *)description
 {
     NSString *descriptionString = 
