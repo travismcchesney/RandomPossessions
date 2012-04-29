@@ -26,6 +26,7 @@ int main(int argc, const char * argv[])
             NSLog(@"%@", item);
         }
         
+        NSLog(@"Setting items to nil...");
         items = nil;
     }
     return 0;
