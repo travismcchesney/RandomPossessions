@@ -10,20 +10,12 @@
 
 @interface BNRContainer : BNRItem
 {
-    NSMutableArray *list;
-    NSString *name;
-    int value;
+    NSMutableArray *containerList;
 }
 
 -(id)initWithContainerName:(NSString *)cName 
-            containervalue:(int)cValue;
+            containerValue:(int)cValue;
 
 -(void)addBNRItem:(BNRItem *)item;
-
--(void)setName:(NSString *)cName;
--(NSString *)name;
-
--(void)setValue:(int)cValue;
--(int)value;
 
 @end

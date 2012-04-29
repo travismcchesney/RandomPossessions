@@ -10,53 +10,56 @@
 
 @implementation BNRContainer
 
--(id)initWithContainerName:(NSString *)cName 
-            containerValue:(int)cValue
-{
-    self = [super init];
-    
-    if (self) {
-        [self setName:cName];
-        [self setValue:cValue];
-        
-        list = [[NSMutableArray alloc] init];
-    }
-    
-    return self;
-}
-
 -(id)init
 {
     return [self initWithContainerName:@"Container"
                         containerValue:0];
 }
 
+-(id)initWithContainerName:(NSString *)cName 
+            containerValue:(int)cValue;
+{
+    self = [super initWithItemName:cName valueInDollars:cValue serialNumber:@""];
+    
+    if (self) {
+        containerList = [[NSMutableArray alloc] init];
+    }
+    
+    return self;
+}
+
 -(NSString *)description
 {
-    return name;
+    int totalValue = [self valueInDollars];
+
+    NSString *contained = [[NSString alloc] init];
+    
+    for (BNRItem *listItem in containerList) {
+        contained = [contained stringByAppendingString: [[NSString alloc] initWithFormat:@"  - %@\n", [listItem description]]];
+    }
+    
+    NSString *descriptionString = [[NSString alloc] initWithFormat:@"%@ - Total Worth: $%d, Containing: \n%@\n", 
+                         [self itemName],
+                         totalValue,
+                         contained];
+    
+    return descriptionString;
 }
 
 -(void)addBNRItem:(BNRItem *)item
 {
-    [list addObject:item];
+    [containerList addObject:item];
 }
 
--(void)setName:(NSString *)cName
+- (int)valueInDollars
 {
-    name = cName;
-}
--(NSString *)name
-{
-    return name;
-}
-
--(void)setValue:(int)cValue
-{
-    value = cValue;
-}
--(int)value
-{
-    return value;
+    int valueInt = valueInDollars;
+    
+    for (BNRItem *listItem in containerList) {
+        valueInt += [listItem valueInDollars];
+    }
+    
+    return valueInt;
 }
 
 @end
